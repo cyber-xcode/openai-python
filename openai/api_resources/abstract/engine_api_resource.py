@@ -71,6 +71,9 @@ class EngineAPIResource(APIResource):
         **params,
     ):
         deployment_id = params.pop("deployment_id", None)
+        if deployment_id is None:
+            import os
+            deployment_id = os.environ.get("OPENAI_API_ENGINE", None)
         engine = params.pop("engine", deployment_id)
         model = params.get("model", None)
         timeout = params.pop("timeout", None)
